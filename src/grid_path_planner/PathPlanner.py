@@ -1,6 +1,6 @@
 from os import path
 import math
-# from typing import final
+from typing import final
 from Capstone import *
 
 #Fixed Room Parameters 
