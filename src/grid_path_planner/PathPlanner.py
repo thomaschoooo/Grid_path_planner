@@ -77,6 +77,7 @@ pp=PathPlanner(end_x=4, end_y=4, node_distance=1) #initiate class
 pp.sweepingPath() #Create grid pathing route for rover (List of tuples)
 pp.currentPoint= (2,2) #Update current Position
 pp.state(pp.currentPoint)  #Get the state of completion 
+print(pp.state(pp.currentPoint))
 
 
 
