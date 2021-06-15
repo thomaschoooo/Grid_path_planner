@@ -4,10 +4,9 @@
 # Feel free to use this code in your own projects, including commercial projects
 # License: Apache v2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>
 
-# from __future__ import annotations
+from __future__ import annotations
 # some of these types are deprecated: https://www.python.org/dev/peps/pep-0585/
-from typing import Dict, List, Iterator, Tuple, TypeVar, Optional
-from typing_extensions import Protocol
+from typing import Protocol, Dict, List, Iterator, Tuple, TypeVar, Optional
 T = TypeVar('T')
 import heapq
 # import collections
@@ -16,6 +15,7 @@ GridLocation = Tuple[int, int]
 
 #Setup for Graph
 class Graph(Protocol):
+    
     def neighbors(self, id: Location) -> List[Location]: pass
 
 class WeightedGraph(Graph):
@@ -161,6 +161,19 @@ def a_star_search(graph: WeightedGraph, start: Location, goal: Location):
                 came_from[next] = current
     
     return came_from, cost_so_far
+
+class Queue:
+    def __init__(self):
+        self.elements = collections.deque()
+    
+    def empty(self) -> bool:
+        return not self.elements
+    
+    def put(self, x: T):
+        self.elements.append(x)
+    
+    def get(self) -> T:
+        return self.elements.popleft()
 
 def breadth_first_search(graph: Graph, start: Location, goal: Location):
     frontier = Queue()
