@@ -28,6 +28,7 @@ class PathPlanner:
 
     #SweepingPath creates the entire grid route for the rover to avoid obstacles
     def sweepingPath(self):
+        grid = GridWithWeights(self.end_x, self.end_y)
         final_path=[]
         j=0
         while j <= self.num_nodes_y:
@@ -46,6 +47,7 @@ class PathPlanner:
             final_path += self.shortestPath(self.path[index], self.path[index+1])[:-1]
             grid.weights[self.path[index]] = 10
             index+=1
+        final_path += [self.path[-1]]
         self.path = final_path
         self.route = self.path
     
