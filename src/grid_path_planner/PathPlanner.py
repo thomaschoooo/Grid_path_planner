@@ -1,7 +1,7 @@
 from os import path
 import math
-from typing import final
-from Capstone import *
+# from typing import final
+from .Capstone import *
 
 #Fixed Room Parameters 
 max_x = 5
@@ -9,7 +9,7 @@ max_y = 7
 min_x = 1
 min_y = 1
 beacon_pos=[(0.38,0.01),(3.84,0.01),(1.48,7.59),(2.54,7.59)]
-obstacle = [(2,3)] 
+obstacle = []#[(2,3)] 
 
 #Grid formation
 grid = GridWithWeights(max_x, max_y)
@@ -72,32 +72,10 @@ class PathPlanner:
         return(self.path[diff.index(min(diff))])
 
 
-#User Guide
-pp=PathPlanner(end_x=4, end_y=4, node_distance=1) #initiate class
-pp.sweepingPath() #Create grid pathing route for rover (List of tuples)
-pp.currentPoint= (2,2) #Update current Position
-pp.state(pp.currentPoint)  #Get the state of completion 
-print(pp.state(pp.currentPoint))
-
-
-
-'''The 2 sets of code below shows you ROUGHLY how your code will be used
-
-Finding red object
-
-pp = PathPlanner()
-arrayOfPoints = pp.shortestPath((1,1), (4,4)) 
-
-for point in arrayOfPoints:
-    robot.move_to( Point(x=point[0], y=point[1]) )
-
-
-
-Sweeping
-
-pp = PathPlanner()
-arrayOfPoints = pp.coveragePath( (1,1) ) 
-
-for point in arrayOfPoints:
-    robot.move_to( Point(x=point[0], y=point[1]) )
-'''
+# pp = PathPlanner(4, 4, 1)
+# pp.sweepingPath() #Create grid pathing route for rover (List of tuples)
+# pp.currentPoint=(2,2) #Update current Position
+# pp.state(pp.currentPoint)  #Get the state of completion 
+# print(pp.state(pp.currentPoint))
+# print("Route: ", end=" ")
+# print(pp.route)
