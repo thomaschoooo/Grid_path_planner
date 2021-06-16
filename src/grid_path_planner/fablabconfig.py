@@ -1,5 +1,6 @@
 START_X = 1
-START_Y = 1
-END_X = 4
-END_Y = 4
-NODE_DIST = 1
+START_Y = 4
+END_X = 3
+END_Y = 6
+NODE_DIST = 0.5
+OBSTACLES=[(2,6)]
