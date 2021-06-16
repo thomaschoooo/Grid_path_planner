@@ -6,13 +6,13 @@ import time
 
 
 class PathPlanner:
-    def __init__(self, end_x, end_y, node_distance, x=1, y=1):
+    def __init__(self, end_x, end_y, node_distance, x=1, y=1, obstacles=[]):
         self.min_x = int(x)
         self.min_y = int(y)
         self.max_x = 5
         self.max_y = 7
         self.beacon_pos=[(0.38,0.01),(3.84,0.01),(1.48,7.59),(2.54,7.59)]
-        self.obstacle = [(2,3)]
+        self.obstacle = obstacles#[(2,3)]
         self.end_x = int(end_x)
         self.end_y = int(end_y)
         self.node_distance = node_distance
