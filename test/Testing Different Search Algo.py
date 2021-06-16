@@ -122,29 +122,4 @@ for i in n:
 print(dij)
 print(bfs)
 print(ast)
-# print(( sum(dij)/len(dij), sum(bfs)/len(bfs), sum(ast)/len(ast)))
-# print(pp.path)
-# print(pp.state(pp.currentPoint))
 
-
-
-'''The 2 sets of code below shows you ROUGHLY how your code will be used
-
-Finding red object
-
-pp = PathPlanner()
-arrayOfPoints = pp.shortestPath((1,1), (4,4)) 
-
-for point in arrayOfPoints:
-    robot.move_to( Point(x=point[0], y=point[1]) )
-
-
-
-Sweeping
-
-pp = PathPlanner()
-arrayOfPoints = pp.coveragePath( (1,1) ) 
-
-for point in arrayOfPoints:
-    robot.move_to( Point(x=point[0], y=point[1]) )
-'''
