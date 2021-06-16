@@ -1,7 +1,7 @@
 from os import path
 import math
 # from typing import final
-from Capstone import *
+from .Capstone import *
 import time
 
 
@@ -86,13 +86,7 @@ class PathPlanner:
         return (self.path[diff.index(min(diff))])
 
 
-#User Guide
-pp=PathPlanner(end_x=3, end_y=3, node_distance = 0.25) #initiate class
-pp.sweepingPath() #Create grid pathing route for rover (List of tuples)
-# pp.currentPoint= ((2, 2)) #Update current Position
-# pp.state(pp.currentPoint)  #Get the state of completion 
-print(pp.path)
-# print(pp.nearestPoint(pp.currentPoint))
+
 
 
 
