@@ -4,6 +4,7 @@ from typing import final
 from Capstone import *
 import time
 
+
 class PathPlanner:
     def __init__(self, end_x, end_y, node_distance, x=1, y=1):
         self.min_x = x
@@ -47,15 +48,8 @@ class PathPlanner:
             else:
                 final_path.append(point)
 
-        # self.path = [index for index in self.path if index not in self.obstacle] #Remove routes from walls
-        # index=0
-        # while index < len(self.path)-1: 
-        #     final_path += self.shortestPath(self.path[index], self.path[index+1])[:-1]
-        #     index+=1
-        # final_path += [self.path[-1]]
-        # end= time.time()
         self.path = final_path
-        # print(end-start)
+        self.route = self.path
     
     #Show the data of the progress of the sweep
     def state(self,currentPoint): 
@@ -66,13 +60,12 @@ class PathPlanner:
 
     #Obtain the list of tuple to bring the rover on the shortest path
     def shortestPath(self, currentPoint, targetPoint): #functionName(inputVariableName : InputType) -> returnType:
-        # start=time.time()
+        
         grid = GridWithWeights(self.end_x+1, self.end_y+1)
         grid.walls=self.obstacle
-        came_from = dijkstra_search(grid, currentPoint, targetPoint) 
-        # end=time.time()
-        # print(end-start)
-        return reconstruct_path(came_from, currentPoint, targetPoint)
+        came_from_bfs = breadth_first_search(grid, currentPoint, targetPoint)
+        
+        return reconstruct_path(came_from_bfs, currentPoint, targetPoint)
 
     def update(self,targetPoint): #working on this now
         self.route = self.shortestPath(self.currentPoint,targetPoint) + self.state(self.currentPoint)[1]
@@ -86,13 +79,12 @@ class PathPlanner:
 
 
 #User Guide
-pp=PathPlanner(end_x=3, end_y=3, node_distance=1) #initiate class
+pp=PathPlanner(end_x=4, end_y=4, node_distance=1) #initiate class
 pp.sweepingPath() #Create grid pathing route for rover (List of tuples)
-pp.currentPoint= (2,2) #Update current Position
+pp.currentPoint= ((1.2, 3.8)) #Update current Position
 pp.state(pp.currentPoint)  #Get the state of completion 
-# pp.update()
 print(pp.path)
-# print(pp.state(pp.currentPoint))
+print(pp.nearestPoint(pp.currentPoint))
 
 
 

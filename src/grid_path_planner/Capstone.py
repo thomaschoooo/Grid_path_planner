@@ -9,6 +9,8 @@ from __future__ import annotations
 from typing import Protocol, Dict, List, Iterator, Tuple, TypeVar, Optional
 T = TypeVar('T')
 import heapq
+import collections
+
 # import collections
 Location = TypeVar('Location')
 GridLocation = Tuple[int, int]
@@ -18,9 +20,7 @@ class Graph(Protocol):
     
     def neighbors(self, id: Location) -> List[Location]: pass
 
-class WeightedGraph(Graph):
-    def cost(self, from_id: Location, to_id: Location) -> float: pass
-
+#Creating Grid
 class SquareGrid:
     def __init__(self, width: int, height: int):
         self.width = width
@@ -43,6 +43,10 @@ class SquareGrid:
         results = filter(self.passable, results)
         return results
 
+#If graph have weights
+class WeightedGraph(Graph):
+    def cost(self, from_id: Location, to_id: Location) -> float: pass
+
 class GridWithWeights(SquareGrid):
     def __init__(self, width: int, height: int):
         super().__init__(width, height)
@@ -50,35 +54,6 @@ class GridWithWeights(SquareGrid):
     
     def cost(self, from_node: GridLocation, to_node: GridLocation) -> float:
         return self.weights.get(to_node, 1)
-
-
-# Grahpics of Graph
-def from_id_width(id, width):
-    return (id % width, id // width)
-
-def draw_tile(graph, id, style):
-    r = " . "
-    if 'number' in style and id in style['number']: r = " %-2d" % style['number'][id]
-    if 'point_to' in style and style['point_to'].get(id, None) is not None:
-        (x1, y1) = id
-        (x2, y2) = style['point_to'][id]
-        if x2 == x1 + 1: r = " > "
-        if x2 == x1 - 1: r = " < "
-        if y2 == y1 + 1: r = " v "
-        if y2 == y1 - 1: r = " ^ "
-    if 'path' in style and id in style['path']:   r = " @ "
-    if 'start' in style and id == style['start']: r = " S "
-    if 'goal' in style and id == style['goal']:   r = " G "
-    if id in graph.walls: r = "###"
-    return r
-
-def draw_grid(graph, **style):
-    print("___" * graph.width)
-    for y in range(graph.height):
-        for x in range(graph.width):
-            print("%s" % draw_tile(graph, (x, y), style), end="")
-        print()
-    print("~~~" * graph.width)
 
 #Setup for Queue
 class PriorityQueue:
@@ -120,7 +95,7 @@ def dijkstra_search(graph: WeightedGraph, start: Location, goal: Location):
     return came_from
 
 
-#Shows the optimised path with @
+#Creates  
 def reconstruct_path(came_from: Dict[Location, Location],
                      start: Location, goal: Location) -> List[Location]:
     current: Location = goal
@@ -160,8 +135,12 @@ def a_star_search(graph: WeightedGraph, start: Location, goal: Location):
                 frontier.put(next, priority)
                 came_from[next] = current
     
-    return came_from, cost_so_far
+    return came_from
 
+
+
+
+# If non-weighted Graph BFS is a better choice
 class Queue:
     def __init__(self):
         self.elements = collections.deque()
